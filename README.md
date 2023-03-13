@@ -13,8 +13,46 @@
 10. write the “last modified” date output by semester into a file. ```./semester | grep last-modified | cut --delimiter=':' -f2- > /home/lewis/last-modified.txt``` Note: in this case take fields 2 until last
 11. Read out your laptop battery’s power level or your desktop machine’s CPU temperature ```cat /sys/class/power_supply/battery/capacity``` Note: Could not find CPU temp
 
+Notes:
+
 ## 2. Shell Tools and Scripting
-1. 
+1. An ```ls``` command that 
+- Includes all files, including hidden files
+- Sizes are listed in human readable format (e.g. 454M instead of 454279954)
+- Files are ordered by recency
+- Output is colorized
+-- ```lsp () {
+        ls -ahlt --color
+}```
+
+2. Whenever you execute marco the current working directory should be saved in some manner, then when you execute polo, no matter what directory you are in, polo should cd you back to the directory where you executed marco
+-- ```marco () {
+        marco_var=`pwd`
+        echo "Saved marco"
+}
+polo () {
+        cd "$marco_var"
+        echo "Return polo"
+}```
+
+3. Run the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took.
+
+```
+#!/usr/bin/env bash
+
+count=0
+
+while true; do 
+    count=$((count + 1)) 
+    ./random.sh >log/stdout.txt 2> log/stderr.txt 
+    if [[ $? -ne 0 ]]; then 
+        echo -e "Script failed after $count runs.\nStandard output:\n$(cat log/stdout.txt)\nStandard error:\n$(cat log/stderr.txt)" 
+        break 
+    fi 
+done
+```
+
+4. Recursively find all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces``` find . -name '*.html' -print0 | xargs -0 tar cvf html.tar.gz```
 
 Notes
 - ```test``` utility evaluates expressions. E.g. -f is true if a file exists.
