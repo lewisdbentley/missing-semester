@@ -65,3 +65,43 @@ Notes
 - Full fledged file managers like ```nnn``` use navigation arrows to quickly explore
 - fasd adds a ```z``` command that you can use to quickly cd using a substring of a frecent directory. E.g. ```z lewis```
 - ```history | rg {{something}}``` will print commands that contain the substring {{something}}.
+
+## 2. Editors (Vim)
+1. ```:help :w``` is different from ```:help w```: the former is for the command w (write) while the latter is for the w keystroke in normal mode
+2. ```:qa``` closes all open windows
+3. 
+### Movement commands
+3. ```w``` moves cursor forward one word. ```b``` moves back one word. ```e``` to end of word
+4. ```0```beginning of line. ```$```end of line. ```^``` first non-empty character.
+5. ```^D``` page down. ```^U``` page up. ```G``` moves all the way down. ```gg``` moves all the way up
+6. ```fs``` find the next s. ```Fs``` find the previous s.
+7. ```/range``` (+enter) cursor jumps to first instance of range
+
+### Selection
+Visual: v
+Visual Line: V
+Visual Block: Ctrl-v
+
+### Edit commands
+Vim’s editing commands are also called “verbs”, because verbs act on "nouns" (movements).
+7. ```o``` insert a new line below, and insert. ```O``` insert new line above.
+8. ```u``` undo (in normal mode). ```^R``` redo.
+9. ```de``` delete until end of word. ```d$``` delete until end of line. ```ce``` delete until end of word, and insert. (c & d take motions as arguments)
+10. ```cc``` delete line, and insert. ```dd``` delete line.
+11. ```r!``` delete chosen character and replace with !. ```x``` delete chosen character.
+12. ```yw``` copy the chosen word. ```p``` paste
+13. ```.``` Repeat the last edit. (One of the most useful vim commands).
+
+### Counts
+13. ```8j``` move the cursor down eight lines (useful with relative line numbering).
+
+### Modifiers
+You can use modifiers to change the meaning of a noun
+14. ```ci[``` change inside square brackets (enter insert mode after deleting contents within brackets)
+
+## 1. Data Wranglng
+1. ```less``` gives us a “pager” that allows us to scroll up and down through the long output.
+2. ```sed``` basically gives short commands to modify a file, rather than manipulate its contents directly (although you can do that too).
+3. ```sort -nk1,1``` means sort numerically and only in the first whitespace-separated column.
+4. ```uniq -c``` collapse consecutive lines that are the same into a single line, prefixed with a count of the number of occurrences. (useful after applying sort).
+5. ```paste -sd```  combine lines (-s) by a given single-character delimiter (-d; , in this case).
