@@ -104,7 +104,7 @@ Notes
 ## Data Wrangling
 
 - Take this short interactive regex tutorial (done).
-- 2.  find the num of words in /usr/share/dict/words with three a's which do not end in 's. 
+2 Find the num of words in /usr/share/dict/words with three a's which do not end in 's. 
 - ```cat /usr/share/dict/words | rg a.*a.*a.*[^\'s]$ | wc --words
 - What are the three most common last two letters of these words? 
 ```cat /usr/share/dict/words |``` prints the contents of the file words to stdout.
