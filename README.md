@@ -19,14 +19,7 @@ Notes:
 - An ```ls``` command that - Includes all files, including hidden files - Sizes are listed in human readable format (e.g. -4M instead of 454279954) - Files are ordered by recency - Output is colorized -- ```lsp () { ls -ahlt --color }```
 
 - Whenever you execute marco the current working directory should be saved in some manner, then when you execute polo, no matter what directory you are in, polo should cd you back to the directory where you executed marco
--- ```marco () {
-        marco_var=`pwd`
-        echo "Saved marco"
-}
-polo () {
-        cd "$marco_var"
-        echo "Return polo"
-}```
+```marco () { marco_var=`pwd` echo "Saved marco" } polo () { cd "$marco_var" echo "Return polo" }```
 
 - Run the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took.
 
@@ -98,8 +91,7 @@ Notes
 - (1)
 - Take this short interactive regex tutorial (done).
 - (2)
-- Find the num of words in /usr/share/dict/words with three a's which do not end in 's. 
-- ```cat /usr/share/dict/words |``` rg a.*a.*a.*[^\'s]$ | wc --words
+- Find the num of words in /usr/share/dict/words with three a's which do not end in 's. ```cat /usr/share/dict/words | rg a.*a.*a.*[^\'s]$ | wc --words```
 - What are the three most common last two letters of these words? 
 ```cat /usr/share/dict/words |``` prints the contents of the file words to stdout.
 ```tr "[:upper:]" "[:lower:]"``` converts upper case to lower cas
@@ -111,6 +103,26 @@ Notes
 ```sort -n |``` sort by number of occurences (ascending)
 ```tail -n3``` only show the three most common two letter patterns
 And for a challenge: which combinations do not occur?
+- ``` ... | sort | uniq > last_letters.txt ``` to print the letter combinations which do occur to a file
+- Write a small program to collect all the possible two letter combinations:
+```
+#!/usr/bin/env bash
+
+letters=('a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z')
+
+length=${#letters[@]}
+
+for ((i = 0; i < length; i++)); do
+    for ((j = 0; j < length; j++)); do
+        # echo "Letter combo: $((length * i + j)): 
+        echo "${letters[i]}${letters[j]}"
+    done
+done
+```
+
+- Output the two-letter combinations to a file ```source letters.sh all_letters.txt```
+- Check the difference between both all_letters and last_letters ```diff --changed-group-format="%<" --unchanged-group-format="" all_letters.txt last_letters.txt
+- (3)
 
 Notes
 - if you want some simple plotting, gnuplot is your friend
