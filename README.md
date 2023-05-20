@@ -123,7 +123,7 @@ done
 - Output the two-letter combinations to a file ```source letters.sh all_letters.txt```
 - Check the difference between both all_letters and last_letters ```diff --changed-group-format="%<" --unchanged-group-format="" all_letters.txt last_letters.txt
 - (3)
-
+It is tempting to edit files in-place via ```sed/REGEX/SUBSTITUTION/ input.txt > input.txt``` However, this fails because an empty input.txt will output to an empty input.txt. Furthermore, editing files in place can be dangerous, even without getting regexes involved. Nevertheless, the -i extension can be used if desired. ``` sed -i s/stars/étoile/g auden.txt```
 Notes
 - if you want some simple plotting, gnuplot is your friend
 - ```less``` gives us a “pager” that allows us to scroll up and down through the long output.
