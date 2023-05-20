@@ -16,14 +16,7 @@
 Notes:
 
 ## - Shell Tools and Scripting
-- An ```ls``` command that 
-- Includes all files, including hidden files
-- Sizes are listed in human readable format (e.g. -4M instead of 454279954)
-- Files are ordered by recency
-- Output is colorized
--- ```lsp () {
-        ls -ahlt --color
-}```
+- An ```ls``` command that - Includes all files, including hidden files - Sizes are listed in human readable format (e.g. -4M instead of 454279954) - Files are ordered by recency - Output is colorized -- ```lsp () { ls -ahlt --color }```
 
 - Whenever you execute marco the current working directory should be saved in some manner, then when you execute polo, no matter what directory you are in, polo should cd you back to the directory where you executed marco
 -- ```marco () {
@@ -102,10 +95,11 @@ You can use modifiers to change the meaning of a noun
 Notes
 
 ## Data Wrangling
-
+- (1)
 - Take this short interactive regex tutorial (done).
-2 Find the num of words in /usr/share/dict/words with three a's which do not end in 's. 
-- ```cat /usr/share/dict/words | rg a.*a.*a.*[^\'s]$ | wc --words
+- (2)
+- Find the num of words in /usr/share/dict/words with three a's which do not end in 's. 
+- ```cat /usr/share/dict/words |``` rg a.*a.*a.*[^\'s]$ | wc --words
 - What are the three most common last two letters of these words? 
 ```cat /usr/share/dict/words |``` prints the contents of the file words to stdout.
 ```tr "[:upper:]" "[:lower:]"``` converts upper case to lower cas
