@@ -131,4 +131,31 @@ Notes
 - ```sort -nk1,1``` means sort numerically and only in the first whitespace-separated column.
 - ```uniq -c``` collapse consecutive lines that are the same into a single line, prefixed with a count of the number of occurrences. (useful after applying sort).
 - ```paste -sd```  combine lines (-s) by a given single-character delimiter (-d; , in this case).
-
+- (4)
+Find your average, median, and max system boot time over the last ten boots
+```journalctl | rg "palicomp systemd\[[0-9]{4}\] Startup finished in [0-9]{3}ms. | ``` finds the lines with the log timestamps (for the user process? systemd[1] also loads with the same process every time quicker). ``` sed -E 's/.*finished in ([0-9]{3}ms./\1/' | tail n10 | ``` collects the last ten boot times in ms (N.B. it disregards boot times measures in seconds and is therefore innacurate! This would require a second capture pattern!) ``` | stats ``` this single column of three digit numbers is piped to an awk program in /usr/local/bin/stats:
+```#!/bin/sh
+sort -n | awk '
+  BEGIN {
+    c = 0;
+    sum = 0;
+  }
+  $1 ~ /^(\-)?[0-9]*(\.[0-9]*)?$/ {
+    a[c++] = $1;
+    sum += $1;
+  }
+  END {
+    ave = sum / c;
+    if( (c % 2) == 1 ) {
+      median = a[ int(c/2) ];
+    } else {
+      median = ( a[c/2] + a[c/2-1] ) / 2;
+    }
+    OFS="\t";
+    print sum, c, ave, median, a[0], a[c-1];
+  }
+'
+```
+- The above script reads from stdin, and prints tab-separated columns of output on a single line. E.g, 8514	10	851.4	833	813	948
+- (5)
+Look for boot messages that are not shared between your past three reboots
